@@ -1,0 +1,183 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block stylesheets %}
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/assets/style/bootstrap.min.css">
+<link rel="stylesheet" href="/assets/style/style.css">
+
+{% endblock %}
+
+{% block body %}
+      <div class="wrapper d-flex align-items-stretch">
+			<nav id="sidebar">
+				<div class="p-4 pt-5">
+		  		<a href="#" class="img logo rounded-circle mb-5" style="background-image: url(https://bootdey.com/img/Content/avatar/avatar7.png);"></a>
+	        <ul class="list-unstyled components mb-5">
+	          <li >
+	            <a href="{{path('dashboard')}}"  aria-expanded="false" class="dropdown-toggle">Materials</a>
+	           
+	          </li>
+	          <li>
+	              <a href="{{path('agencies')}}">Agencies</a>
+	          </li>
+	          <li>
+              <a href="{{path('agents')}}"  aria-expanded="false" class="dropdown-toggle">Agents</a>
+	          </li>
+	          <li>
+              <a href="{{path('fournisseurs')}}">Suppliers</a>
+	          </li>
+	          <li>
+              <a href="{{path('services')}}">Services</a>
+	          </li>
+	          <li>
+              <a href="{{path('type_material')}}">Type Materials</a>
+	          </li>
+	          <li>
+              <a href="{{path('designations')}}">Designations</a>
+	          </li>
+	          <li>
+              <a href="{{path('users')}}">Users</a>
+	          </li>
+	        </ul>
+
+	      </div>
+    	</nav>
+        <!-- Page Content  -->
+      <div id="content" class="p-4 p-md-5">
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <div class="container-fluid">
+
+            <button type="button" id="sidebarCollapse" class="btn btn-primary">
+              <i class="fa fa-bars"></i>
+              <span class="sr-only">Toggle Menu</span>
+            </button>
+            <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fa fa-bars"></i>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="nav navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home</a>
+                </li>              
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                <th scope="col">N° inventory</th>
+                <th scope="col">Guarantee</th>
+                <th scope="col">Date of receipt</th>
+                <th scope="col">Commissioning</th>
+                <th scope="col">Designation</th>
+                <th scope="col">Agency name</th>
+                <th scope="col">Supplier name</th>
+                <th scope="col">Service name</th>
+                <th scope="col">Type Material</th>
+                <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for material in materials %}
+                <tr class="table-active">
+                <th scope="row">{{material.numeroinventaire}}</th>
+                <td>{{material.garantie}}</td>
+                <td>{{material.datedereception | date("d/m/y")}}</td>
+                <td>
+                {% if material.affecter == 1 %}
+                oui
+                {% elseif material.affecter == 0 %}
+                non
+                {% endif %}
+                </td>
+                <td>{{material.designation}}</td>
+                <td>{{material.agencies}}</td>
+                <td>{{material.fournisseur.firstName}} {{material.fournisseur.lastName}}</td>
+                <td>{{material.service}}</td>
+                <td>{{material.typeMaterial}}</td>
+                <td>
+                  <a href="{{material.id}}" data-toggle="modal" data-target="#show" class="btn btn-sm btn-primary">
+                    <i class="fa fa-eye"></i>
+                  </a>
+                  <a href="{{path('dashboard_edit', {'id':material.id})}}" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#exampleModalCenter">
+                    <i class="fa fa-edit"></i>
+                  </a>
+                  <a href="#" class="btn btn-sm btn-danger">
+                    <i class="fa fa-trash"></i>
+                  </a>
+                </td>
+                </tr>
+                <!-- Modal show -->
+              <div class="modal fade" id="show" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">{{material.designation}}</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <b>N° inventory : </b>{{material.numeroinventaire}} <hr>
+                      <b>Guarantee : </b>{{material.garantie}} <hr>
+                      <b>Date of receipt : </b>{{material.datedereception | date("d/m/y")}} <hr>
+                      <b>Commissioning : </b>{% if material.affecter == 1 %}
+                oui
+                {% elseif material.affecter == 0 %}
+                non
+                {% endif %}<hr>
+                      <b>Designationt : </b>{{material.designation}} <hr>
+                      <b>Agency name : </b>{{material.agencies}} <hr>
+                      <b>Supplier name : </b>{{material.fournisseur.firstName}} {{material.fournisseur.lastName}} <hr>
+                      <b>Service name : </b>{{material.service}} <hr>
+                      <b>Type Material : </b>{{material.typeMaterial}}
+                      
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+                
+            </tbody>
+        </table>
+	</div>
+  <!-- Modal edit -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {# {{ form_start(form) }}
+        {{form_row(form.designation)}}
+        {{ form_end(form) }}  #}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+ <script src="/assets/script/jquery.min.js"></script>
+    <script src="/assets/script/popper.js"></script>
+    <script src="/assets/script/bootstrap.min.js"></script>
+    <script src="/assets/script/main.js"></script>
+
+{% endblock %}

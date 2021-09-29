@@ -1,0 +1,109 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Designations{% endblock %}
+
+{% block stylesheets %}
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/assets/style/bootstrap.min.css">
+<link rel="stylesheet" href="/assets/style/style.css">
+
+{% endblock %}
+
+{% block body %}
+
+<div class="wrapper d-flex align-items-stretch">
+			<nav id="sidebar">
+				<div class="p-4 pt-5">
+		  		<a href="#" class="img logo rounded-circle mb-5" style="background-image: url(https://bootdey.com/img/Content/avatar/avatar7.png);"></a>
+	        <ul class="list-unstyled components mb-5">
+	          <li >
+	            <a href="{{path('dashboard')}}"  aria-expanded="false" class="dropdown-toggle">Materials</a>
+	           
+	          </li>
+	          <li>
+	              <a href="{{path('agencies')}}">Agencies</a>
+	          </li>
+	          <li>
+              <a href="{{path('agents')}}"  aria-expanded="false" class="dropdown-toggle">Agents</a>
+	          </li>
+	          <li>
+              <a href="{{path('fournisseurs')}}">Suppliers</a>
+	          </li>
+	          <li>
+              <a href="{{path('services')}}">Services</a>
+	          </li>
+	          <li>
+              <a href="{{path('type_material')}}">Type Materials</a>
+	          </li>
+	          <li>
+              <a href="{{path('designations')}}">Designations</a>
+	          </li>
+	          <li>
+              <a href="{{path('users')}}">Users</a>
+	          </li>
+	        </ul>
+
+	      </div>
+    	</nav>
+        <!-- Page Content  -->
+      <div id="content" class="p-4 p-md-5">
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <div class="container-fluid">
+
+            <button type="button" id="sidebarCollapse" class="btn btn-primary">
+              <i class="fa fa-bars"></i>
+              <span class="sr-only">Toggle Menu</span>
+            </button>
+            <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fa fa-bars"></i>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="nav navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                <th scope="col">Designation</th>
+                <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for designation in designations %}
+              
+            
+                <tr class="table-active">
+                <th scope="row">{{designation.designation}}</th>
+                <td>
+                  <a href="#" class="btn btn-sm btn-primary">
+                    <i class="fa fa-eye"></i>
+                  </a>
+                  <a href="#" class="btn btn-sm btn-warning">
+                    <i class="fa fa-edit"></i>
+                  </a>
+                  <a href="#" class="btn btn-sm btn-danger">
+                    <i class="fa fa-trash"></i>
+                  </a>
+                </td>
+                </tr>
+           {% endfor %}
+                
+            </tbody>
+        </table>
+	</div>
+
+    <script src="/assets/script/jquery.min.js"></script>
+    <script src="/assets/script/popper.js"></script>
+    <script src="/assets/script/bootstrap.min.js"></script>
+    <script src="/assets/script/main.js"></script>
+
+{% endblock %}

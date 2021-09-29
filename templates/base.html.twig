@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {# Run `composer require symfony/webpack-encore-bundle`
+           and uncomment the following Encore helpers to start using Symfony UX #}
+        {% block stylesheets %}
+            {#{{ encore_entry_link_tags('app') }}#}
+            <link rel="stylesheet" href="/assets/style/bootstrap.min.css">
+            <link rel="stylesheet" href="/assets/style/profile.css">
+            <link rel="stylesheet" href="/assets/style/navdropdown.css">
+            <link rel="stylesheet" href="/assets/style/dashboard.css">
+            <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+        {% endblock %}
+
+        {% block javascripts %}
+            {#{{ encore_entry_script_tags('app') }}#}
+        {% endblock %}
+    </head>
+    <body>
+    
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Gestion de stock</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarColor01">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link active" href="{{path('home')}}">Home
+            <span class="visually-hidden">(current)</span>
+          </a>
+        </li>
+      
+        {% if app.user %}
+                {# <li class="nav-item ">
+                    <a class="nav-link" href="{{ path('profile') }}">Profile</a>
+                </li>
+                <li class="nav-item float-right">
+                    <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
+                </li> #}
+
+                <li class="nav-item position-absolute  end-50">
+                      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-list-4" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                      </button>
+                      <div class="collapse navbar-collapse" id="navbar-list-4">
+                        <ul class="navbar-nav">
+                            <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/fox.jpg" width="40" height="40" class="rounded-circle">
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                              <a class="dropdown-item" href="{{ path('dashboard') }}">Dashboard</a>
+                              <a class="dropdown-item" href="{{ path('profile') }}">Profile</a>
+                              <a class="dropdown-item" href="{{ path('app_logout') }}">Log Out</a>
+                            </div>
+                          </li>   
+                        </ul>
+                      </div>
+                  </li>
+        {# {% elseif app.user == false %}
+                <li class="nav-item float-right">
+                    <a class="nav-link" href="{{ path('app_login') }}">Login</a>
+                </li>#}
+         {% endif %} 
+      </ul>
+    </div>
+  </div>
+</nav>
+
+        {% block body %}
+        
+
+           
+        {% endblock %}
+       
+    </body>
+</html>
